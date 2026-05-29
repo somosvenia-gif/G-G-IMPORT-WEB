@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --deep-black: #000000;
+    --neon-purple: #CF00FF;
+    --tech-white: #FFFFFF;
+    --light-gray: #807f7f;
+  }
+  
+  html {
+    background-color: var(--deep-black);
+    color: var(--tech-white);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased bg-bgLight text-deepBlack selection:bg-neonPink selection:text-white min-h-screen overflow-x-hidden;
+  }
+
+  /* Preset B custom scrollbar for dark aesthetic */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--light-gray); 
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-purple); 
+  }
+}
+
+@layer utilities {
+  .clip-pill {
+    clip-path: inset(0 0 0 0 round 9999px);
+  }
+  
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+}
+
+/* Global Noise overlay CSS */
+.noise-overlay {
+  display: none;
+}
