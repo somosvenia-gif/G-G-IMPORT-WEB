@@ -46,7 +46,7 @@ export const Footer = ({ onAdminClick }: FooterProps) => {
 
         <div className="flex items-center justify-between w-full">
           <p className="font-sans text-xs text-white/30">
-            © {new Date().getFullYear()} G&G IMPORT LOGISTICS. TODOS LOS DERECHOS RESERVADOS.
+            © {new Date().getFullYear()} <a href="https://instagram.com/somos_venia" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-white/30 underline-offset-2">SOMOS VENIA</a>. TODOS LOS DERECHOS RESERVADOS.
           </p>
           <button
               onClick={() => { console.log('Admin button clicked'); onAdminClick(); }}

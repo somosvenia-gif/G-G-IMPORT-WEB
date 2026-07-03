@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import React from 'react';
 import { X, Plus, Pencil, Trash2, RotateCcw, Check, ShieldAlert, Upload, Link, Save, CheckCircle, AlertCircle, Loader, Images } from 'lucide-react';
 import { useProductStore, type Product, type Category } from '../store/useProducts';
 import { useHeroStore } from '../store/useHero';
@@ -352,7 +353,8 @@ function ProductForm({
   );
 }
 
-export const AdminPanel = ({ onClose }: { onClose: () => void }) => {
+type AdminPanelProps = { onClose: () => void };
+export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [pwd, setPwd] = useState('');
   const correctPwd = 'admin123'; // TODO: cambiar clave según necesidad
