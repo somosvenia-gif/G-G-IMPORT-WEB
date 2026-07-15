@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import { Search, ShoppingCart, Camera, Share2, Video, ChevronDown } from 'lucide-react';
+import { Search, ShoppingCart, ChevronDown } from 'lucide-react';
 import { useCartStore } from '../store/useCart';
 import { useUIStore } from '../store/useUI';
 import type { Category } from '../data/products';
+import { InstagramIcon, FacebookIcon, TiktokIcon } from './icons/SocialIcons';
 
 const CATEGORIES: { id: 'all' | Category; label: string }[] = [
   { id: 'all', label: 'Todos los Productos' },
@@ -133,7 +134,7 @@ export const Header = () => {
               rel="noopener noreferrer"
               className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center hover:bg-neonPink hover:border-neonPink hover:text-white transition-all text-white"
             >
-              <Camera size={14} />
+              <InstagramIcon size={14} />
             </a>
             <a
               href="https://facebook.com"
@@ -141,7 +142,7 @@ export const Header = () => {
               rel="noopener noreferrer"
               className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center hover:bg-neonPink hover:border-neonPink hover:text-white transition-all text-white"
             >
-              <Share2 size={14} />
+              <FacebookIcon size={14} />
             </a>
             <a
               href="https://tiktok.com"
@@ -149,7 +150,7 @@ export const Header = () => {
               rel="noopener noreferrer"
               className="w-8 h-8 rounded-full border border-white/30 flex items-center justify-center hover:bg-neonPink hover:border-neonPink hover:text-white transition-all text-white"
             >
-              <Video size={14} />
+              <TiktokIcon size={14} />
             </a>
           </div>
 
