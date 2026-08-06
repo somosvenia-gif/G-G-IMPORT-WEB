@@ -357,7 +357,7 @@ type AdminPanelProps = { onClose: () => void };
 export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [pwd, setPwd] = useState('');
-  const correctPwd = 'admin123'; // TODO: cambiar clave según necesidad
+  const correctPwd = 'Geo2026.'; // TODO: cambiar clave según necesidad
 
   const { products, addProduct, updateProduct, deleteProduct, resetToDefaults } = useProductStore();
   const { images: heroImgs, addImage, removeImage, setImages } = useHeroStore();
