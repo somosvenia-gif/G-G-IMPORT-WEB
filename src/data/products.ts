@@ -229,12 +229,15 @@ export const products: Product[] = [
     "stock": 2
   },
   {
-    "name": "Blusa transparente con flores",
-    "price": 15,
+    "name": "Sobre todo transparente con flores",
+    "price": 10,
     "brand": "SHEIN",
     "category": "casual",
     "image": "/product-images/custom-1779767464195.png",
-    "id": "custom-1779767464195"
+    "id": "custom-1779767464195",
+    "sizes": [
+      "M"
+    ]
   },
   {
     "name": "Blusa con manchas negras",
