@@ -212,12 +212,21 @@ export const products: Product[] = [
     "id": "custom-1779767340353"
   },
   {
-    "name": "Franela animal print",
+    "name": "chaleco de punto con estampado de leopardo",
     "price": 15,
-    "brand": "SHEIN",
+    "brand": "",
     "category": "casual",
     "image": "/product-images/custom-1779767436580.png",
-    "id": "custom-1779767436580"
+    "id": "custom-1779767436580",
+    "sizes": [
+      "S",
+      "M"
+    ],
+    "colors": [
+      "Beige",
+      "negro"
+    ],
+    "stock": 2
   },
   {
     "name": "Blusa transparente con flores",
