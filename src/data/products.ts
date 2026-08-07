@@ -160,12 +160,15 @@ export const products: Product[] = [
     "id": "custom-1779767079132"
   },
   {
-    "name": "Frenala manga larga gris",
-    "price": 25,
-    "brand": "SHEIN",
+    "name": "Manga larga de encaje ",
+    "price": 18,
+    "brand": "",
     "category": "casual",
     "image": "/product-images/custom-1779767161505.png",
-    "id": "custom-1779767161505"
+    "id": "custom-1779767161505",
+    "sizes": [
+      "S"
+    ]
   },
   {
     "name": "Blusa Rosada",
