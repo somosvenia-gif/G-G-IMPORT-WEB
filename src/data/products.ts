@@ -281,12 +281,15 @@ export const products: Product[] = [
     "id": "custom-1779829093586"
   },
   {
-    "name": "Franela basica Vitamina",
+    "name": "Basic",
     "price": 10,
-    "brand": "SHEIN",
+    "brand": "",
     "category": "casual",
     "image": "/product-images/custom-1779829124513.png",
-    "id": "custom-1779829124513"
+    "id": "custom-1779829124513",
+    "sizes": [
+      "S"
+    ]
   },
   {
     "name": "Franela basica life is better",
