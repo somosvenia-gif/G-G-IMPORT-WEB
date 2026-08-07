@@ -595,5 +595,20 @@ export const products: Product[] = [
       "Talla 3"
     ],
     "id": "custom-1786086013280"
+  },
+  {
+    "name": " Vestido negro sencillo",
+    "price": 18,
+    "brand": "SHEIN",
+    "category": "dresses",
+    "image": "/product-images/custom-1786086195250.jpg",
+    "sizes": [
+      "S"
+    ],
+    "colors": [
+      "Negro"
+    ],
+    "stock": 1,
+    "id": "custom-1786086195250"
   }
 ];
