@@ -308,11 +308,14 @@ export const products: Product[] = [
     "id": "custom-1779829173995"
   },
   {
-    "name": "Jean con flores",
+    "name": "Jeans ",
     "price": 40,
-    "brand": "SHEIN",
+    "brand": "SE BUSCA",
     "category": "casual",
     "image": "/product-images/custom-1779829197029.png",
-    "id": "custom-1779829197029"
+    "id": "custom-1779829197029",
+    "colors": [
+      "Talla 7"
+    ]
   }
 ];
