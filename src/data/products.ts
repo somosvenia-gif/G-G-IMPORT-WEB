@@ -273,14 +273,6 @@ export const products: Product[] = [
     "stock": 3
   },
   {
-    "name": "Franela blanca de rallas grises",
-    "price": 15,
-    "brand": "SHEIN",
-    "category": "casual",
-    "image": "/product-images/custom-1779828923051.png",
-    "id": "custom-1779828923051"
-  },
-  {
     "name": "Chaleco beige de rayas blancas",
     "price": 20,
     "brand": "SHEIN",
