@@ -463,5 +463,17 @@ export const products: Product[] = [
       "Gris"
     ],
     "id": "custom-1786083112605"
+  },
+  {
+    "name": "Sweater Maru ",
+    "price": 30,
+    "brand": "FOREVER CH",
+    "category": "casual",
+    "image": "/product-images/custom-1786083232136.png",
+    "colors": [
+      "Crema",
+      "Azul"
+    ],
+    "id": "custom-1786083232136"
   }
 ];
