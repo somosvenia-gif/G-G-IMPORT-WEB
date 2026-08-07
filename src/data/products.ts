@@ -133,9 +133,9 @@ export const products: Product[] = [
     "id": "custom-1779752626477"
   },
   {
-    "name": "Blusa de rayas gris y turquesa",
-    "price": 25,
-    "brand": "SHEIN",
+    "name": "Basic de rayas ",
+    "price": 15,
+    "brand": "",
     "category": "casual",
     "image": "/product-images/custom-1779764949848.png",
     "id": "custom-1779764949848"
