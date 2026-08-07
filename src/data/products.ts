@@ -480,5 +480,28 @@ export const products: Product[] = [
       "Azul"
     ],
     "id": "custom-1786083232136"
+  },
+  {
+    "name": "COMFYSETS",
+    "price": 30,
+    "brand": "ML",
+    "category": "swimwear",
+    "image": "/product-images/custom-1786084309601.jpg",
+    "images": [
+      "/product-images/custom-1786084309601-0.jpg",
+      "/product-images/custom-1786084309601-1.jpg",
+      "/product-images/custom-1786084309601-2.jpg"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L"
+    ],
+    "colors": [
+      "Negro",
+      "Rosado",
+      "Marrón"
+    ],
+    "id": "custom-1786084309601"
   }
 ];
