@@ -561,7 +561,7 @@ export const products: Product[] = [
     "id": "custom-1786085036190"
   },
   {
-    "name": "Jeans tendencia ",
+    "name": "Jeans tendencia WIDE LEG",
     "price": 40,
     "brand": "",
     "category": "casual",
