@@ -124,9 +124,9 @@ export const products: Product[] = [
     "id": "custom-1774669619983"
   },
   {
-    "name": "Franela con corset de jean",
-    "price": 30,
-    "brand": "SHEIN",
+    "name": "Basic moderna",
+    "price": 15,
+    "brand": "",
     "category": "casual",
     "image": "/product-images/custom-1779752626477.png",
     "stock": 1,
