@@ -317,5 +317,17 @@ export const products: Product[] = [
     "colors": [
       "Talla 7"
     ]
+  },
+  {
+    "name": "Blusas foreverch ",
+    "price": 18,
+    "brand": "FOREVER CH",
+    "category": "casual",
+    "image": "/product-images/custom-1786080846795.png",
+    "colors": [
+      "Blanco",
+      "marrón"
+    ],
+    "id": "custom-1786080846795"
   }
 ];
