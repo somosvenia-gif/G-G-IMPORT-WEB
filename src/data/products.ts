@@ -141,12 +141,15 @@ export const products: Product[] = [
     "id": "custom-1779764949848"
   },
   {
-    "name": "Franela Corazon",
-    "price": 20,
-    "brand": "SHEIN",
+    "name": "Basic de corazón ",
+    "price": 15,
+    "brand": "",
     "category": "casual",
     "image": "/product-images/custom-1779766958031.png",
-    "id": "custom-1779766958031"
+    "id": "custom-1779766958031",
+    "sizes": [
+      "S"
+    ]
   },
   {
     "name": "Blusa roja de reno",
