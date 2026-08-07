@@ -515,5 +515,17 @@ export const products: Product[] = [
       "M"
     ],
     "id": "custom-1786084499560"
+  },
+  {
+    "name": "Basic ",
+    "price": 12,
+    "brand": "",
+    "category": "casual",
+    "image": "/product-images/custom-1786084649943.jpg",
+    "colors": [
+      "Azul",
+      "Rosado"
+    ],
+    "id": "custom-1786084649943"
   }
 ];
