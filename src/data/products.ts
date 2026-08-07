@@ -31,7 +31,7 @@ export const DISCOUNTS: Record<string, string> = {
 export const products: Product[] = [
   {
     "name": "Sueter Color Mostaza",
-    "price": 25,
+    "price": 18,
     "brand": "SHEIN",
     "category": "casual",
     "image": "/product-images/custom-1774650270022.png",
