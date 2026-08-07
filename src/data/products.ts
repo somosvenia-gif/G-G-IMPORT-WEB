@@ -152,7 +152,7 @@ export const products: Product[] = [
     ]
   },
   {
-    "name": "Blusa roja de reno",
+    "name": "Basic de navidad",
     "price": 10,
     "brand": "SHEIN",
     "category": "casual",
