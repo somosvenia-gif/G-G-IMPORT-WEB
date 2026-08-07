@@ -545,5 +545,19 @@ export const products: Product[] = [
       "Gris"
     ],
     "id": "custom-1786084835176"
+  },
+  {
+    "name": "SETS FLOR",
+    "price": 35,
+    "brand": "",
+    "category": "casual",
+    "image": "/product-images/custom-1786085036190.jpg",
+    "sizes": [
+      "S"
+    ],
+    "colors": [
+      "Negro"
+    ],
+    "id": "custom-1786085036190"
   }
 ];
