@@ -573,5 +573,16 @@ export const products: Product[] = [
       "Talla 13"
     ],
     "id": "custom-1786085219731"
+  },
+  {
+    "name": "Jeans straight ",
+    "price": 40,
+    "brand": "SHEIN",
+    "category": "casual",
+    "image": "/product-images/custom-1786085487686.jpg",
+    "colors": [
+      "Talla 9"
+    ],
+    "id": "custom-1786085487686"
   }
 ];
