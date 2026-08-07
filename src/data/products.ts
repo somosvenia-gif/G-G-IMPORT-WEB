@@ -367,5 +367,16 @@ export const products: Product[] = [
       "S"
     ],
     "id": "custom-1786081016994"
+  },
+  {
+    "name": "Blusa de lazos ",
+    "price": 18,
+    "brand": "SHEIN",
+    "category": "casual",
+    "image": "/product-images/custom-1786081067623.jpg",
+    "sizes": [
+      "M"
+    ],
+    "id": "custom-1786081067623"
   }
 ];
