@@ -11,6 +11,7 @@ export interface Product {
   price: number;
   brand: string;
   image: string;
+  images?: string[];
   category: Category;
   sizes?: string[];
   colors?: string[];
@@ -41,17 +42,25 @@ exports.handler = async (event) => {
 
     // Extrae imágenes nuevas (base64) y las convierte en archivos reales del repo,
     // igual que hace el plugin de Vite en desarrollo local.
-    const cleanProducts = products.map((p) => {
-      if (typeof p.image === 'string' && p.image.startsWith('data:')) {
-        const match = p.image.match(/^data:image\/(\w+);base64,/);
+    const saveImageIfBase64 = (value, filenameBase) => {
+      if (typeof value === 'string' && value.startsWith('data:')) {
+        const match = value.match(/^data:image\/(\w+);base64,/);
         const ext = (match ? match[1] : 'jpeg').replace('jpeg', 'jpg');
-        const filename = safeFilename(p.id, ext);
-        const base64Data = p.image.replace(/^data:image\/\w+;base64,/, '');
+        const filename = safeFilename(filenameBase, ext);
+        const base64Data = value.replace(/^data:image\/\w+;base64,/, '');
         files.push({ path: `public/product-images/${filename}`, contentBase64: base64Data });
-        return { ...p, image: `/product-images/${filename}` };
+        return `/product-images/${filename}`;
       }
-      return p;
-    });
+      return value;
+    };
+
+    const cleanProducts = products.map((p) => ({
+      ...p,
+      image: saveImageIfBase64(p.image, p.id),
+      images: Array.isArray(p.images)
+        ? p.images.map((img, i) => saveImageIfBase64(img, `${p.id}-${i}`))
+        : p.images,
+    }));
 
     // Conserva el encabezado actual del archivo (tipos, CATEGORY_LABELS, DISCOUNTS, etc.)
     const current = await readFile('src/data/products.ts');

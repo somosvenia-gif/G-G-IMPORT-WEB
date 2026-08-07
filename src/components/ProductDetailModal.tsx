@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, ShoppingBag, Share2, Send, MessageCircle, Link, Minus, Plus } from 'lucide-react';
+import { X, ShoppingBag, Share2, Send, MessageCircle, Link, Minus, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCartStore } from '../store/useCart';
 import { trackEvent } from '../lib/analytics';
 import type { Product } from '../data/products';
@@ -43,6 +43,7 @@ export function ProductDetailModal({ product, onClose }: Props) {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [qty, setQty] = useState(1);
   const [copied, setCopied] = useState(false);
+  const [galleryIndex, setGalleryIndex] = useState(0);
   const addItem = useCartStore(s => s.addItem);
 
 
@@ -52,6 +53,7 @@ export function ProductDetailModal({ product, onClose }: Props) {
     setSelectedColor(null);
     setQty(1);
     setCopied(false);
+    setGalleryIndex(0);
     if (product) {
       trackEvent('view_item', { content_name: product.name, value: product.price, currency: 'USD' });
     }
@@ -66,6 +68,7 @@ export function ProductDetailModal({ product, onClose }: Props) {
 
   if (!product) return null;
 
+  const gallery = [product.image, ...(product.images ?? [])];
   const hasSizes = product.sizes && product.sizes.length > 0;
   const hasColors = product.colors && product.colors.length > 0;
   const canAdd = (!hasSizes || selectedSize !== null) && (!hasColors || selectedColor !== null);
@@ -111,7 +114,7 @@ export function ProductDetailModal({ product, onClose }: Props) {
         {/* ── Columna izquierda: imagen ─────────────────────────── */}
         <div className="relative w-full md:w-[42%] flex-shrink-0 bg-gray-50 min-h-[240px] md:min-h-0">
           <img
-            src={product.image}
+            src={gallery[galleryIndex]}
             alt={product.name}
             className="w-full h-full object-cover max-h-[44vh] md:max-h-full"
             onError={e => { (e.currentTarget as HTMLImageElement).src = 'https://placehold.co/400x500/f5f5f5/999?text=Imagen'; }}
@@ -121,6 +124,32 @@ export function ProductDetailModal({ product, onClose }: Props) {
             <div className="absolute top-4 left-4 bg-neonPink text-white text-xs font-bold px-2 py-1 shadow">
               {product.discount}
             </div>
+          )}
+          {/* Flechas y puntos — solo si hay más de una foto */}
+          {gallery.length > 1 && (
+            <>
+              <button
+                onClick={() => setGalleryIndex(i => (i - 1 + gallery.length) % gallery.length)}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 hover:bg-white shadow flex items-center justify-center text-deepBlack transition-all"
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <button
+                onClick={() => setGalleryIndex(i => (i + 1) % gallery.length)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 hover:bg-white shadow flex items-center justify-center text-deepBlack transition-all"
+              >
+                <ChevronRight size={16} />
+              </button>
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                {gallery.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setGalleryIndex(i)}
+                    className={`h-1.5 rounded-full transition-all ${i === galleryIndex ? 'bg-white w-5' : 'bg-white/50 w-1.5 hover:bg-white/80'}`}
+                  />
+                ))}
+              </div>
+            </>
           )}
           {/* Botón cerrar mobile */}
           <button

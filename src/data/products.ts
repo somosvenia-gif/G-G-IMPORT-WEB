@@ -6,6 +6,7 @@ export interface Product {
   price: number;
   brand: string;
   image: string;
+  images?: string[];   // Fotos adicionales de la galería (además de la portada)
   category: Category;
   sizes?: string[];    // Tallas disponibles, ej: ['S', 'M', 'L', 'XL']
   colors?: string[];   // Colores disponibles, ej: ['Negro', 'Blanco']

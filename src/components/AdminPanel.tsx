@@ -3,6 +3,9 @@ import React from 'react';
 import { X, Plus, Pencil, Trash2, RotateCcw, Check, ShieldAlert, Upload, Link, Save, CheckCircle, AlertCircle, Loader, Images } from 'lucide-react';
 import { useProductStore, type Product, type Category } from '../store/useProducts';
 import { useHeroStore } from '../store/useHero';
+import { compressImage } from '../lib/imageCompress';
+
+const MAX_GALLERY_IMAGES = 4;
 
 const CATEGORIES: { id: Category; label: string }[] = [
   { id: 'swimwear', label: 'Trajes de Baño' },
@@ -27,7 +30,7 @@ function parseColors(raw: string): string[] | undefined {
 const emptyForm = {
   name: '', price: '', brand: 'SHEIN',
   category: 'swimwear' as Category,
-  image: '', discount: '',
+  image: '', images: [] as string[], discount: '',
   sizes: [] as string[],
   colors: '', // texto libre separado por comas, ej: "Negro, Blanco, Beige"
   stock: '',
@@ -51,6 +54,7 @@ function ProductForm({
     brand: initial?.brand ?? 'SHEIN',
     category: (initial?.category as Category) ?? 'swimwear',
     image: initial?.image ?? '',
+    images: (initial as any)?.images ?? [],
     discount: initial?.discount ?? '',
     sizes: (initial as any)?.sizes ?? [],
     colors: (initial as any)?.colors ? (initial as any).colors.join(', ') : '',
@@ -59,7 +63,9 @@ function ProductForm({
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [imageTab, setImageTab] = useState<'upload' | 'url'>('upload');
   const [uploading, setUploading] = useState(false);
+  const [uploadingGallery, setUploadingGallery] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const galleryInputRef = useRef<HTMLInputElement>(null);
 
   const set = (k: keyof FormData, v: string | string[]) =>
     setForm((f) => ({ ...f, [k]: v }));
@@ -71,25 +77,58 @@ function ProductForm({
     }));
   };
 
-  // Convert selected file to base64 data URL
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Convierte el archivo seleccionado a una foto liviana (JPEG comprimido)
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     if (!file.type.startsWith('image/')) {
       alert('Por favor selecciona una imagen válida (JPG, PNG, WEBP)');
       return;
     }
-    if (file.size > 3 * 1024 * 1024) {
-      alert('La imagen es demasiado grande. Máximo 3MB.');
+    if (file.size > 8 * 1024 * 1024) {
+      alert('La imagen es demasiado grande. Máximo 8MB.');
       return;
     }
     setUploading(true);
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      set('image', ev.target?.result as string);
+    try {
+      const compressed = await compressImage(file);
+      set('image', compressed);
+    } catch {
+      alert('No se pudo procesar la imagen. Intenta con otra.');
+    } finally {
       setUploading(false);
-    };
-    reader.readAsDataURL(file);
+    }
+  };
+
+  // Sube varias fotos adicionales para la galería del producto (máx. MAX_GALLERY_IMAGES)
+  const handleGalleryFilesChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files ?? []);
+    if (files.length === 0) return;
+    const remaining = MAX_GALLERY_IMAGES - form.images.length;
+    if (remaining <= 0) {
+      alert(`Máximo ${MAX_GALLERY_IMAGES} fotos adicionales por producto.`);
+      return;
+    }
+    const toProcess = files.slice(0, remaining);
+    setUploadingGallery(true);
+    try {
+      const compressed: string[] = [];
+      for (const file of toProcess) {
+        if (!file.type.startsWith('image/')) continue;
+        if (file.size > 8 * 1024 * 1024) { alert(`"${file.name}" pesa demasiado (máx. 8MB).`); continue; }
+        compressed.push(await compressImage(file));
+      }
+      setForm(f => ({ ...f, images: [...f.images, ...compressed] }));
+    } catch {
+      alert('No se pudo procesar alguna imagen. Intenta de nuevo.');
+    } finally {
+      setUploadingGallery(false);
+      if (galleryInputRef.current) galleryInputRef.current.value = '';
+    }
+  };
+
+  const removeGalleryImage = (index: number) => {
+    setForm(f => ({ ...f, images: f.images.filter((_, i) => i !== index) }));
   };
 
   const validate = () => {
@@ -310,7 +349,7 @@ function ProductForm({
                   <span className="text-xs text-lightGray font-medium">
                     {uploading ? 'Cargando...' : 'Haz clic para seleccionar imagen'}
                   </span>
-                  <span className="text-[10px] text-lightGray/60">JPG, PNG, WEBP · Máx. 3MB</span>
+                  <span className="text-[10px] text-lightGray/60">JPG, PNG, WEBP · se comprime automáticamente</span>
                 </button>
                 {form.image?.startsWith('data:') && (
                   <p className="text-[10px] text-green-600 mt-1.5 font-medium">✓ Imagen cargada correctamente</p>
@@ -353,6 +392,48 @@ function ProductForm({
                 </div>
               </div>
             )}
+          </div>
+
+          {/* Fotos adicionales (galería) */}
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-widest text-lightGray mb-2">
+              Fotos adicionales ({form.images.length}/{MAX_GALLERY_IMAGES})
+            </label>
+            <div className="flex flex-wrap gap-2 mb-2">
+              {form.images.map((img, i) => (
+                <div key={i} className="relative w-16 h-16 group">
+                  <img src={img} alt={`Foto ${i + 2}`} className="w-full h-full object-cover rounded-sm border border-gray-100" />
+                  <button
+                    type="button"
+                    onClick={() => removeGalleryImage(i)}
+                    className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-neonPink text-white rounded-full flex items-center justify-center text-xs shadow"
+                  >
+                    <X size={12} />
+                  </button>
+                </div>
+              ))}
+              {form.images.length < MAX_GALLERY_IMAGES && (
+                <button
+                  type="button"
+                  onClick={() => galleryInputRef.current?.click()}
+                  disabled={uploadingGallery}
+                  className="w-16 h-16 border-2 border-dashed border-gray-200 rounded-sm flex items-center justify-center hover:border-neonPink hover:bg-pink-50/30 transition-colors disabled:opacity-50"
+                >
+                  {uploadingGallery ? <Loader size={16} className="text-lightGray animate-spin" /> : <Plus size={20} className="text-lightGray" />}
+                </button>
+              )}
+            </div>
+            <input
+              ref={galleryInputRef}
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleGalleryFilesChange}
+              className="hidden"
+            />
+            <p className="text-[10px] text-lightGray">
+              Opcional — se muestran en la galería de la ficha del producto, además de la foto principal.
+            </p>
           </div>
         </div>
 
@@ -465,6 +546,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
       brand: data.brand,
       category: data.category,
       image: data.image,
+      images: data.images.length > 0 ? data.images : undefined,
       discount: data.discount || undefined,
       sizes: data.sizes.length > 0 ? data.sizes : undefined,
       colors: parseColors(data.colors),
@@ -492,6 +574,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
       brand: data.brand,
       category: data.category,
       image: data.image,
+      images: data.images.length > 0 ? data.images : undefined,
       discount: data.discount || undefined,
       sizes: data.sizes.length > 0 ? data.sizes : undefined,
       colors: parseColors(data.colors),

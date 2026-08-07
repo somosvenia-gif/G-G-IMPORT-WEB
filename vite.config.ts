@@ -28,23 +28,28 @@ function saveProductsPlugin(): Plugin {
               fs.mkdirSync(imagesDir, { recursive: true });
             }
 
-            // Procesar productos: extraer base64 → archivo real
-            const cleanProducts = products.map((p) => {
-              if (typeof p.image === 'string' && p.image.startsWith('data:')) {
-                // Detectar extensión desde el data URL
-                const match = p.image.match(/^data:image\/(\w+);base64,/);
+            // Convierte un data URL base64 en archivo real; deja los paths ya existentes intactos.
+            const saveImageIfBase64 = (value: unknown, filenameBase: string) => {
+              if (typeof value === 'string' && value.startsWith('data:')) {
+                const match = value.match(/^data:image\/(\w+);base64,/);
                 const ext = match ? match[1].replace('jpeg', 'jpg') : 'jpg';
-                const filename = `${p.id}.${ext}`;
+                const filename = `${filenameBase}.${ext}`;
                 const filePath = path.join(imagesDir, filename);
-
-                // Guardar imagen como archivo
-                const base64Data = p.image.replace(/^data:image\/\w+;base64,/, '');
+                const base64Data = value.replace(/^data:image\/\w+;base64,/, '');
                 fs.writeFileSync(filePath, Buffer.from(base64Data, 'base64'));
-
-                return { ...p, image: `/product-images/${filename}` };
+                return `/product-images/${filename}`;
               }
-              return p;
-            });
+              return value;
+            };
+
+            // Procesar productos: extraer base64 (portada + galería) → archivos reales
+            const cleanProducts = products.map((p) => ({
+              ...p,
+              image: saveImageIfBase64(p.image, p.id),
+              images: Array.isArray(p.images)
+                ? p.images.map((img: unknown, i: number) => saveImageIfBase64(img, `${p.id}-${i}`))
+                : p.images,
+            }));
 
             // Leer encabezado actual de products.ts (tipos, interfaces, etc.)
             const filePath = path.resolve(process.cwd(), 'src/data/products.ts');
