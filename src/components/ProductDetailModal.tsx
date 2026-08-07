@@ -10,12 +10,13 @@ interface Props {
 
 const WHATSAPP_NUMBER = '584121627012';
 
-function buildBuyNowURL(product: Product, size: string | null, qty: number) {
+function buildBuyNowURL(product: Product, size: string | null, color: string | null, qty: number) {
   const sizeStr = size ? ` — Talla: ${size}` : '';
+  const colorStr = color ? ` — Color: ${color}` : '';
   const msg = [
     `¡Hola! Quiero comprar este producto de *G&G IMPORT* 🛍️`,
     ``,
-    `👗 *${product.name}*${sizeStr}`,
+    `👗 *${product.name}*${sizeStr}${colorStr}`,
     `🔢 Cantidad: ${qty}`,
     `💰 Total: $${(product.price * qty).toFixed(2)}`,
     ``,
@@ -38,6 +39,7 @@ function ShareButton({ icon: Icon, label, onClick }: { icon: any; label: string;
 
 export function ProductDetailModal({ product, onClose }: Props) {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [qty, setQty] = useState(1);
   const [copied, setCopied] = useState(false);
   const addItem = useCartStore(s => s.addItem);
@@ -46,6 +48,7 @@ export function ProductDetailModal({ product, onClose }: Props) {
   // Resetear estado cuando cambia el producto
   useEffect(() => {
     setSelectedSize(null);
+    setSelectedColor(null);
     setQty(1);
     setCopied(false);
   }, [product?.id]);
@@ -60,19 +63,20 @@ export function ProductDetailModal({ product, onClose }: Props) {
   if (!product) return null;
 
   const hasSizes = product.sizes && product.sizes.length > 0;
-  const canAdd = !hasSizes || selectedSize !== null;
+  const hasColors = product.colors && product.colors.length > 0;
+  const canAdd = (!hasSizes || selectedSize !== null) && (!hasColors || selectedColor !== null);
   const isOutOfStock = product.stock === 0;
   const maxQty = product.stock ?? 99;
 
   const handleAdd = () => {
     if (!canAdd || isOutOfStock) return;
-    addItem(product, selectedSize ?? undefined, qty);
+    addItem(product, selectedSize ?? undefined, selectedColor ?? undefined, qty);
     onClose();
   };
 
   const handleBuyNow = () => {
     if (!canAdd || isOutOfStock) return;
-    window.open(buildBuyNowURL(product, selectedSize, qty), '_blank');
+    window.open(buildBuyNowURL(product, selectedSize, selectedColor, qty), '_blank');
   };
 
   const handleShare = (platform: string) => {
@@ -90,8 +94,6 @@ export function ProductDetailModal({ product, onClose }: Props) {
       window.open(`https://wa.me/?text=${encodeURIComponent(text + '\n' + url)}`, '_blank');
     }
   };
-
-  const discount = Math.round(((product.price * 1.25 - product.price) / (product.price * 1.25)) * 100);
 
   return (
     <div
@@ -111,9 +113,11 @@ export function ProductDetailModal({ product, onClose }: Props) {
             onError={e => { (e.currentTarget as HTMLImageElement).src = 'https://placehold.co/400x500/f5f5f5/999?text=Imagen'; }}
           />
           {/* Badge descuento */}
-          <div className="absolute top-4 left-4 bg-neonPink text-white text-xs font-bold px-2 py-1 shadow">
-            -{discount}% OFF
-          </div>
+          {product.discount && (
+            <div className="absolute top-4 left-4 bg-neonPink text-white text-xs font-bold px-2 py-1 shadow">
+              {product.discount}
+            </div>
+          )}
           {/* Botón cerrar mobile */}
           <button
             onClick={onClose}
@@ -148,7 +152,9 @@ export function ProductDetailModal({ product, onClose }: Props) {
             {/* Precio */}
             <div className="flex items-baseline gap-3 mb-4">
               <span className="text-3xl font-bold text-brandDark">${product.price}</span>
-              <span className="text-sm text-lightGray line-through">${(product.price * 1.25).toFixed(0)}</span>
+              {product.discount && (
+                <span className="text-sm text-lightGray line-through">${(product.price * 1.25).toFixed(0)}</span>
+              )}
             </div>
 
             {/* Stock */}
@@ -187,6 +193,33 @@ export function ProductDetailModal({ product, onClose }: Props) {
               {!selectedSize && (
                 <p className="text-[10px] text-neonPink mt-2 font-medium">
                   ↑ Selecciona una talla para continuar
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Colores */}
+          {hasColors && (
+            <div className="px-8 pt-4 pb-0">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-lightGray mb-3">Color</p>
+              <div className="flex flex-wrap gap-2">
+                {product.colors!.map(color => (
+                  <button
+                    key={color}
+                    onClick={() => setSelectedColor(c => c === color ? null : color)}
+                    className={`min-w-[44px] h-11 px-3 border text-xs font-bold uppercase tracking-widest transition-all ${
+                      selectedColor === color
+                        ? 'bg-brandDark text-white border-brandDark'
+                        : 'bg-white text-deepBlack border-lightGray/30 hover:border-brandDark hover:text-brandDark'
+                    }`}
+                  >
+                    {color}
+                  </button>
+                ))}
+              </div>
+              {!selectedColor && (
+                <p className="text-[10px] text-neonPink mt-2 font-medium">
+                  ↑ Selecciona un color para continuar
                 </p>
               )}
             </div>

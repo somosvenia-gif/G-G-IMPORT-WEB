@@ -78,6 +78,9 @@ export interface Product {
   brand: string;
   image: string;
   category: Category;
+  sizes?: string[];
+  colors?: string[];
+  stock?: number;
   discount?: string;
 }
 

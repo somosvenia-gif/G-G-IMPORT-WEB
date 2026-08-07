@@ -13,7 +13,9 @@ export interface Product {
   image: string;
   category: Category;
   sizes?: string[];
+  colors?: string[];
   stock?: number;
+  discount?: string;
 }
 
 export const CATEGORY_LABELS: Record<Category | 'all', string> = {

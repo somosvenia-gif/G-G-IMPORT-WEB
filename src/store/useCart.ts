@@ -8,20 +8,22 @@ export interface Product {
   brand: string;
   category?: string;
   sizes?: string[];
+  colors?: string[];
   stock?: number;
 }
 
 export interface CartItem extends Product {
   quantity: number;
   selectedSize?: string;
-  cartId: string; // id único: `${productId}-${size ?? ''}`
+  selectedColor?: string;
+  cartId: string; // id único: `${productId}-${size ?? ''}-${color ?? ''}`
 }
 
 interface CartStore {
   items: CartItem[];
   isOpen: boolean;
   isCheckoutOpen: boolean;
-  addItem: (product: Product, selectedSize?: string, qty?: number) => void;
+  addItem: (product: Product, selectedSize?: string, selectedColor?: string, qty?: number) => void;
   removeItem: (cartId: string) => void;
   toggleCart: () => void;
   closeCart: () => void;
@@ -36,8 +38,8 @@ export const useCartStore = create<CartStore>((set, get) => ({
   isOpen: false,
   isCheckoutOpen: false,
 
-  addItem: (product, selectedSize, qty = 1) => set((state) => {
-    const cartId = `${product.id}-${selectedSize ?? ''}`;
+  addItem: (product, selectedSize, selectedColor, qty = 1) => set((state) => {
+    const cartId = `${product.id}-${selectedSize ?? ''}-${selectedColor ?? ''}`;
     const existing = state.items.find(i => i.cartId === cartId);
     if (existing) {
       return {
@@ -48,7 +50,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
       };
     }
     return {
-      items: [...state.items, { ...product, selectedSize, quantity: qty, cartId }],
+      items: [...state.items, { ...product, selectedSize, selectedColor, quantity: qty, cartId }],
       isOpen: true,
     };
   }),

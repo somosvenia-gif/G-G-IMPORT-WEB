@@ -63,12 +63,20 @@ export const Cart = () => {
                   <div>
                     <h3 className="font-sans font-bold text-deepBlack leading-tight truncate">{item.name}</h3>
                     <p className="font-sans text-xs text-lightGray mt-0.5 uppercase tracking-widest">{item.brand}</p>
-                    {item.selectedSize && (
-                      <div className="flex items-center gap-1 mt-1.5">
-                        <Tag size={10} className="text-lightGray" />
-                        <span className="text-[10px] font-bold text-deepBlack uppercase tracking-widest bg-gray-100 px-1.5 py-0.5">
-                          Talla {item.selectedSize}
-                        </span>
+                    {(item.selectedSize || item.selectedColor) && (
+                      <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
+                        {item.selectedSize && (
+                          <span className="flex items-center gap-1 text-[10px] font-bold text-deepBlack uppercase tracking-widest bg-gray-100 px-1.5 py-0.5">
+                            <Tag size={10} className="text-lightGray" />
+                            Talla {item.selectedSize}
+                          </span>
+                        )}
+                        {item.selectedColor && (
+                          <span className="flex items-center gap-1 text-[10px] font-bold text-deepBlack uppercase tracking-widest bg-gray-100 px-1.5 py-0.5">
+                            <Tag size={10} className="text-lightGray" />
+                            {item.selectedColor}
+                          </span>
+                        )}
                       </div>
                     )}
                   </div>

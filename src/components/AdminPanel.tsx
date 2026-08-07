@@ -18,11 +18,18 @@ const DISCOUNT_OPTIONS = [
 
 const STANDARD_SIZES = ['XS', 'S', 'M', 'L', 'XL', '2XL'];
 
+// "Negro, Blanco, Beige" → ['Negro', 'Blanco', 'Beige'] (o undefined si queda vacío)
+function parseColors(raw: string): string[] | undefined {
+  const list = raw.split(',').map(c => c.trim()).filter(Boolean);
+  return list.length > 0 ? list : undefined;
+}
+
 const emptyForm = {
   name: '', price: '', brand: 'SHEIN',
   category: 'swimwear' as Category,
-  image: '', discount: '-20% OFF',
+  image: '', discount: '',
   sizes: [] as string[],
+  colors: '', // texto libre separado por comas, ej: "Negro, Blanco, Beige"
   stock: '',
 };
 
@@ -44,8 +51,9 @@ function ProductForm({
     brand: initial?.brand ?? 'SHEIN',
     category: (initial?.category as Category) ?? 'swimwear',
     image: initial?.image ?? '',
-    discount: initial?.discount ?? '-20% OFF',
+    discount: initial?.discount ?? '',
     sizes: (initial as any)?.sizes ?? [],
+    colors: (initial as any)?.colors ? (initial as any).colors.join(', ') : '',
     stock: (initial as any)?.stock?.toString() ?? '',
   });
   const [errors, setErrors] = useState<Partial<FormData>>({});
@@ -158,6 +166,7 @@ function ProductForm({
                 onChange={(e) => set('discount', e.target.value)}
                 className="w-full border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:border-neonPink rounded-sm bg-white"
               >
+                <option value="">Sin descuento</option>
                 {DISCOUNT_OPTIONS.map((d) => (
                   <option key={d} value={d}>{d}</option>
                 ))}
@@ -236,6 +245,22 @@ function ProductForm({
               />
               <p className="text-[10px] text-lightGray mt-1">Deja vacío si no quieres mostrar stock</p>
             </div>
+          </div>
+
+          {/* Colores disponibles */}
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-widest text-lightGray mb-1">
+              Colores disponibles
+            </label>
+            <input
+              value={form.colors}
+              onChange={(e) => set('colors', e.target.value)}
+              placeholder="Ej: Negro, Blanco, Beige"
+              className="w-full border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:border-neonPink rounded-sm"
+            />
+            <p className="text-[10px] text-lightGray mt-1">
+              Separa los colores con comas. Deja vacío si no aplica (color único).
+            </p>
           </div>
 
           {/* Imagen */}
@@ -440,7 +465,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
       brand: data.brand,
       category: data.category,
       image: data.image,
+      discount: data.discount || undefined,
       sizes: data.sizes.length > 0 ? data.sizes : undefined,
+      colors: parseColors(data.colors),
       stock: data.stock !== '' ? Number(data.stock) : undefined,
     } as any);
     setShowForm(false);
@@ -465,7 +492,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
       brand: data.brand,
       category: data.category,
       image: data.image,
+      discount: data.discount || undefined,
       sizes: data.sizes.length > 0 ? data.sizes : undefined,
+      colors: parseColors(data.colors),
       stock: data.stock !== '' ? Number(data.stock) : undefined,
     } as any);
     setEditingProduct(null);
@@ -724,6 +753,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
                   <th className="text-left py-3 px-3 text-xs font-bold uppercase tracking-widest text-lightGray">Nombre</th>
                   <th className="text-left py-3 px-3 text-xs font-bold uppercase tracking-widest text-lightGray">Precio</th>
                   <th className="text-left py-3 px-3 text-xs font-bold uppercase tracking-widest text-lightGray">Tallas</th>
+                  <th className="text-left py-3 px-3 text-xs font-bold uppercase tracking-widest text-lightGray">Colores</th>
                   <th className="text-left py-3 px-3 text-xs font-bold uppercase tracking-widest text-lightGray">Stock</th>
                   <th className="text-left py-3 px-3 text-xs font-bold uppercase tracking-widest text-lightGray">Categoría</th>
                   <th className="text-right py-3 px-3 text-xs font-bold uppercase tracking-widest text-lightGray">Acciones</th>
@@ -745,7 +775,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
                     </td>
                     <td className="py-3 px-3">
                       <span className="font-bold text-brandDark">${p.price}</span>
-                      <span className="text-lightGray text-xs ml-1 line-through">${(p.price * 1.25).toFixed(0)}</span>
+                      {p.discount && (
+                        <span className="text-lightGray text-xs ml-1 line-through">${(p.price * 1.25).toFixed(0)}</span>
+                      )}
                     </td>
                     {/* Tallas */}
                     <td className="py-3 px-3">
@@ -757,6 +789,18 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
                         </div>
                       ) : (
                         <span className="text-lightGray text-[10px]">Única</span>
+                      )}
+                    </td>
+                    {/* Colores */}
+                    <td className="py-3 px-3">
+                      {(p as any).colors?.length > 0 ? (
+                        <div className="flex flex-wrap gap-1">
+                          {(p as any).colors.map((c: string) => (
+                            <span key={c} className="bg-gray-100 text-deepBlack text-[9px] font-bold px-1.5 py-0.5">{c}</span>
+                          ))}
+                        </div>
+                      ) : (
+                        <span className="text-lightGray text-[10px]">Único</span>
                       )}
                     </td>
                     {/* Stock */}
@@ -821,7 +865,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
             ...editingProduct,
             price: editingProduct.price.toString(),
             stock: editingProduct.stock !== undefined ? editingProduct.stock.toString() : ''
-          }}
+          } as any}
           onSave={handleSaveEdit}
           onCancel={() => setEditingProduct(null)}
         />

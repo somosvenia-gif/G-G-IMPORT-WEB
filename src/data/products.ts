@@ -7,8 +7,10 @@ export interface Product {
   brand: string;
   image: string;
   category: Category;
-  sizes?: string[];   // Tallas disponibles, ej: ['S', 'M', 'L', 'XL']
-  stock?: number;     // Unidades disponibles en total
+  sizes?: string[];    // Tallas disponibles, ej: ['S', 'M', 'L', 'XL']
+  colors?: string[];   // Colores disponibles, ej: ['Negro', 'Blanco']
+  stock?: number;      // Unidades disponibles en total
+  discount?: string;   // Etiqueta de descuento, ej: '-20% OFF'. Opcional: sin descuento si no se define.
 }
 
 export const CATEGORY_LABELS: Record<Category | 'all', string> = {
@@ -17,15 +19,6 @@ export const CATEGORY_LABELS: Record<Category | 'all', string> = {
   casual: 'Ropa Casual',
   dresses: 'Vestidos',
   accessories: 'Accesorios',
-};
-
-export const DISCOUNTS: Record<string, string> = {
-  '1': '-20% OFF', '2': '-22% OFF', '3': '-33% OFF',
-  '4': '-15% OFF', '5': '-40% OFF', '6': '-10% OFF',
-  '7': '-25% OFF', '8': '-18% OFF', '9': '-30% OFF',
-  '10': '-12% OFF', '11': '-20% OFF', '12': '-35% OFF',
-  '13': '-15% OFF', '14': '-28% OFF', '15': '-50% OFF',
-  '16': '-22% OFF', '17': '-10% OFF', '18': '-20% OFF',
 };
 
 export const products: Product[] = [

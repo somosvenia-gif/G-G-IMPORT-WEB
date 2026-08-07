@@ -1,12 +1,12 @@
-import { useRef, useMemo, useState } from 'react';
+import { useRef, useMemo, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ShoppingBag, SearchX } from 'lucide-react';
+import { ShoppingBag, SearchX, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCartStore } from '../store/useCart';
 import { useUIStore } from '../store/useUI';
 import { useProductStore } from '../store/useProducts';
-import { CATEGORY_LABELS, DISCOUNTS, type Category, type Product } from '../data/products';
+import { CATEGORY_LABELS, type Category, type Product } from '../data/products';
 import { ProductDetailModal } from './ProductDetailModal';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,12 +19,31 @@ const TABS: { id: 'all' | Category; label: string }[] = [
   { id: 'accessories', label: 'Accesorios' },
 ];
 
+const PAGE_SIZE = 12;
+
+// Genera la lista de números de página a mostrar, con '…' para saltos grandes.
+// Ej: total=10, current=5 → [1, '…', 4, 5, 6, '…', 10]
+function getPageRange(current: number, total: number): (number | 'ellipsis')[] {
+  const delta = 1;
+  const range: (number | 'ellipsis')[] = [1];
+  const left = Math.max(2, current - delta);
+  const right = Math.min(total - 1, current + delta);
+
+  if (left > 2) range.push('ellipsis');
+  for (let i = left; i <= right; i++) range.push(i);
+  if (right < total - 1) range.push('ellipsis');
+  if (total > 1) range.push(total);
+
+  return range;
+}
+
 export const Catalog = () => {
   const ref = useRef<HTMLDivElement>(null);
   const addItem = useCartStore(state => state.addItem);
   const { searchQuery, activeCategory, setActiveCategory } = useUIStore();
   const products = useProductStore(state => state.products);
   const [detailProduct, setDetailProduct] = useState<Product | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Filter products by category AND search query
   const filteredProducts = useMemo(() => {
@@ -37,6 +56,22 @@ export const Catalog = () => {
       return matchesCategory && matchesSearch;
     });
   }, [activeCategory, searchQuery, products]);
+
+  // Volver a la página 1 cada vez que cambia el filtro/búsqueda
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeCategory, searchQuery]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
+  const pageProducts = useMemo(
+    () => filteredProducts.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE),
+    [filteredProducts, currentPage],
+  );
+
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+    document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   useGSAP(() => {
     gsap.from('.prod-item', {
@@ -104,7 +139,7 @@ export const Catalog = () => {
           </div>
         ) : (
           <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((p) => (
+            {pageProducts.map((p) => (
               <div
                 key={p.id}
                 className="prod-item group flex flex-col relative bg-white shadow-sm hover:shadow-lg transition-shadow duration-300"
@@ -121,9 +156,11 @@ export const Catalog = () => {
                   />
 
                   {/* Discount Badge */}
-                  <div className="absolute top-4 left-4 bg-neonPink text-white font-bold text-xs px-2 py-1 shadow-sm">
-                    {DISCOUNTS[p.id] ?? '-10% OFF'}
-                  </div>
+                  {p.discount && (
+                    <div className="absolute top-4 left-4 bg-neonPink text-white font-bold text-xs px-2 py-1 shadow-sm">
+                      {p.discount}
+                    </div>
+                  )}
 
                   {/* Stock badge */}
                   {p.stock !== undefined && p.stock <= 5 && p.stock > 0 && (
@@ -155,17 +192,19 @@ export const Catalog = () => {
                   </p>
                   <div className="flex gap-3 items-center mb-4">
                     <span className="font-sans font-bold text-brandDark text-xl">€{p.price}</span>
-                    <span className="font-sans text-lightGray text-sm line-through">
-                      €{(p.price * 1.25).toFixed(0)}
-                    </span>
+                    {p.discount && (
+                      <span className="font-sans text-lightGray text-sm line-through">
+                        €{(p.price * 1.25).toFixed(0)}
+                      </span>
+                    )}
                   </div>
                   <button
-                    onClick={() => p.sizes?.length ? setDetailProduct(p) : addItem(p)}
+                    onClick={() => (p.sizes?.length || p.colors?.length) ? setDetailProduct(p) : addItem(p)}
                     disabled={p.stock === 0}
                     className="w-full bg-brandDark hover:bg-neonPink disabled:bg-gray-200 disabled:text-gray-400 text-white text-xs font-bold uppercase tracking-widest py-3 flex items-center justify-center gap-2 transition-colors"
                   >
                     <ShoppingBag size={14} />
-                    {p.stock === 0 ? 'Agotado' : p.sizes?.length ? 'Elegir talla' : 'Agregar al carrito'}
+                    {p.stock === 0 ? 'Agotado' : (p.sizes?.length || p.colors?.length) ? 'Elegir opciones' : 'Agregar al carrito'}
                   </button>
                 </div>
               </div>
@@ -173,10 +212,49 @@ export const Catalog = () => {
           </div>
         )}
 
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-2 mt-12">
+            <button
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="w-9 h-9 flex items-center justify-center border border-lightGray/20 text-deepBlack hover:border-brandDark hover:bg-brandDark hover:text-white disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-deepBlack transition-colors"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            {getPageRange(currentPage, totalPages).map((p, i) =>
+              p === 'ellipsis' ? (
+                <span key={`ellipsis-${i}`} className="w-9 h-9 flex items-center justify-center text-lightGray text-sm">
+                  …
+                </span>
+              ) : (
+                <button
+                  key={p}
+                  onClick={() => goToPage(p)}
+                  className={`w-9 h-9 flex items-center justify-center text-xs font-bold border transition-colors ${
+                    p === currentPage
+                      ? 'bg-brandDark text-white border-brandDark'
+                      : 'bg-white text-deepBlack border-lightGray/20 hover:border-brandDark'
+                  }`}
+                >
+                  {p}
+                </button>
+              )
+            )}
+            <button
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="w-9 h-9 flex items-center justify-center border border-lightGray/20 text-deepBlack hover:border-brandDark hover:bg-brandDark hover:text-white disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-deepBlack transition-colors"
+            >
+              <ChevronRight size={16} />
+            </button>
+          </div>
+        )}
+
         {/* Product count */}
         {filteredProducts.length > 0 && (
-          <p className="text-center text-xs text-lightGray uppercase tracking-widest mt-12">
-            Mostrando {filteredProducts.length} de {products.length} productos
+          <p className="text-center text-xs text-lightGray uppercase tracking-widest mt-4">
+            Mostrando {(currentPage - 1) * PAGE_SIZE + 1}–{Math.min(currentPage * PAGE_SIZE, filteredProducts.length)} de {filteredProducts.length} productos
           </p>
         )}
       </div>
