@@ -133,15 +133,6 @@ export const products: Product[] = [
     "id": "custom-1779752626477"
   },
   {
-    "name": "Franela fucsia con brillo",
-    "price": 25,
-    "brand": "SHEIN",
-    "category": "casual",
-    "image": "/product-images/custom-1779752674505.png",
-    "stock": 1,
-    "id": "custom-1779752674505"
-  },
-  {
     "name": "Blusa de rayas gris y turquesa",
     "price": 25,
     "brand": "SHEIN",
