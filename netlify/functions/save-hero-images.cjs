@@ -1,4 +1,4 @@
-const { commitFiles, safeFilename, checkAdminAuth } = require('./_github.js');
+const { commitFiles, safeFilename, checkAdminAuth } = require('./_github.cjs');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {

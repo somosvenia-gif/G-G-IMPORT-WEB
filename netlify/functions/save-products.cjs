@@ -1,4 +1,4 @@
-const { readFile, commitFiles, safeFilename, checkAdminAuth } = require('./_github.js');
+const { readFile, commitFiles, safeFilename, checkAdminAuth } = require('./_github.cjs');
 
 const HEADER_MARKER = '\nexport const products';
 
