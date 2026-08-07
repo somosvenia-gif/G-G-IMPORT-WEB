@@ -356,5 +356,16 @@ export const products: Product[] = [
       "Negro"
     ],
     "id": "custom-1786080969984"
+  },
+  {
+    "name": "Bra con brillos ",
+    "price": 12,
+    "brand": "SHEIN",
+    "category": "swimwear",
+    "image": "/product-images/custom-1786081016994.jpg",
+    "sizes": [
+      "S"
+    ],
+    "id": "custom-1786081016994"
   }
 ];
