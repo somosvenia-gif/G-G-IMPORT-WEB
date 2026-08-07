@@ -273,8 +273,8 @@ export const products: Product[] = [
     "stock": 3
   },
   {
-    "name": "Franela basica vibrando bonito",
-    "price": 10,
+    "name": "Basic Oversize ",
+    "price": 12,
     "brand": "SHEIN",
     "category": "casual",
     "image": "/product-images/custom-1779829093586.png",
