@@ -71,8 +71,8 @@ function ProductForm({
       alert('Por favor selecciona una imagen válida (JPG, PNG, WEBP)');
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
-      alert('La imagen es demasiado grande. Máximo 5MB.');
+    if (file.size > 3 * 1024 * 1024) {
+      alert('La imagen es demasiado grande. Máximo 3MB.');
       return;
     }
     setUploading(true);
@@ -285,7 +285,7 @@ function ProductForm({
                   <span className="text-xs text-lightGray font-medium">
                     {uploading ? 'Cargando...' : 'Haz clic para seleccionar imagen'}
                   </span>
-                  <span className="text-[10px] text-lightGray/60">JPG, PNG, WEBP · Máx. 5MB</span>
+                  <span className="text-[10px] text-lightGray/60">JPG, PNG, WEBP · Máx. 3MB</span>
                 </button>
                 {form.image?.startsWith('data:') && (
                   <p className="text-[10px] text-green-600 mt-1.5 font-medium">✓ Imagen cargada correctamente</p>
@@ -375,7 +375,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
   // Render login screen if not authenticated
   if (!isAuth) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-deepBlack/60 backdrop-blur-sm">
+      <div className="fixed inset-0 z-[200] flex items-center justify-center bg-deepBlack/60 backdrop-blur-sm">
         <div className="bg-white rounded-[2rem] p-8 shadow-lg max-w-sm w-full">
           <h2 className="text-xl font-bold mb-4">Acceso Administrador</h2>
           <input
@@ -409,7 +409,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
   const saveToFile = async (productList: typeof products) => {
     const res = await fetch('/api/save-products', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': pwd },
       body: JSON.stringify(productList),
     });
     if (!res.ok) throw new Error('Error al guardar');
@@ -505,7 +505,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
   const saveHeroToFile = async (imgs: typeof heroImgs) => {
     const res = await fetch('/api/save-hero-images', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': pwd },
       body: JSON.stringify(imgs),
     });
     if (!res.ok) throw new Error('Error al guardar');
@@ -518,7 +518,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
     const file = e.target.files?.[0];
     if (!file) return;
     if (!file.type.startsWith('image/')) { alert('Selecciona una imagen válida'); return; }
-    if (file.size > 8 * 1024 * 1024) { alert('Máximo 8MB'); return; }
+    if (file.size > 4 * 1024 * 1024) { alert('Máximo 4MB'); return; }
     setHeroUploading(true);
     const reader = new FileReader();
     reader.onload = async (ev) => {
@@ -678,7 +678,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onClose }) => {
                 ) : heroSaveStatus === 'success' ? (
                   <><CheckCircle size={28} className="text-green-500" /><span className="text-xs text-green-600 font-medium">¡Imagen guardada!</span></>
                 ) : (
-                  <><Upload size={28} className="text-lightGray" /><span className="text-xs text-lightGray font-medium">Haz clic para subir una foto al carrusel</span><span className="text-[10px] text-lightGray/60">JPG, PNG, WEBP · Máx. 8MB</span></>
+                  <><Upload size={28} className="text-lightGray" /><span className="text-xs text-lightGray font-medium">Haz clic para subir una foto al carrusel</span><span className="text-[10px] text-lightGray/60">JPG, PNG, WEBP · Máx. 4MB</span></>
                 )}
               </button>
 

@@ -1,0 +1,17 @@
+[build]
+  functions = "netlify/functions"
+
+# El admin panel llama a estas rutas /api/* (igual que en desarrollo local,
+# donde las atiende el plugin de Vite). En producción las redirigimos a las
+# funciones serverless equivalentes, que hacen commit real al repo de GitHub.
+[[redirects]]
+  from = "/api/save-products"
+  to = "/.netlify/functions/save-products"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/save-hero-images"
+  to = "/.netlify/functions/save-hero-images"
+  status = 200
+  force = true
