@@ -378,5 +378,19 @@ export const products: Product[] = [
       "M"
     ],
     "id": "custom-1786081067623"
+  },
+  {
+    "name": "Trajes de baño red",
+    "price": 10,
+    "brand": "SHEIN",
+    "category": "swimwear",
+    "image": "/product-images/custom-1786081132670.jpg",
+    "sizes": [
+      "L"
+    ],
+    "colors": [
+      "Rojo"
+    ],
+    "id": "custom-1786081132670"
   }
 ];
