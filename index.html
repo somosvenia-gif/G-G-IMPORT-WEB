@@ -1,11 +1,55 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>G&G IMPORT - El estándar de la importación inteligente</title>
-    
+
+    <!-- SEO -->
+    <meta name="description" content="Ropa, vestidos, trajes de baño y accesorios importados al mejor precio. Envíos el mismo día en Maracaibo y San Francisco, a toda Venezuela." />
+    <meta name="theme-color" content="#0A0A0A" />
+    <link rel="canonical" href="https://gygimport.com/" />
+
+    <!-- Open Graph / WhatsApp / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="G&G IMPORT" />
+    <meta property="og:title" content="G&G IMPORT - El estándar de la importación inteligente" />
+    <meta property="og:description" content="Ropa, vestidos, trajes de baño y accesorios importados al mejor precio. Envíos el mismo día en Maracaibo y San Francisco, a toda Venezuela." />
+    <meta property="og:image" content="https://gygimport.com/logo.png" />
+    <meta property="og:url" content="https://gygimport.com/" />
+    <meta property="og:locale" content="es_VE" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="G&G IMPORT - El estándar de la importación inteligente" />
+    <meta name="twitter:description" content="Ropa, vestidos, trajes de baño y accesorios importados al mejor precio. Envíos el mismo día en Maracaibo y San Francisco, a toda Venezuela." />
+    <meta name="twitter:image" content="https://gygimport.com/logo.png" />
+
+    <!-- Google Search Console: pega aquí tu etiqueta de verificación cuando la generes -->
+    <!-- <meta name="google-site-verification" content="TU_CODIGO_AQUI" /> -->
+
+    <!-- Datos estructurados para buscadores -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ClothingStore",
+      "name": "G&G IMPORT",
+      "url": "https://gygimport.com/",
+      "image": "https://gygimport.com/logo.png",
+      "priceRange": "€€",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Venezuela"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Maracaibo",
+        "addressCountry": "VE"
+      }
+    }
+    </script>
+
     <!-- Google Fonts for Light Boutique -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +64,14 @@
     </svg>
     <div class="noise-overlay" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
     
+    <!-- Formulario oculto: le permite a Netlify detectar el formulario de captura
+         de correos en el build estático. Las suscripciones reales las envía
+         EmailPopup.tsx por fetch — este form nunca se muestra ni se envía. -->
+    <form name="newsletter" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="email" name="email" />
+      <input type="text" name="bot-field" />
+    </form>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, ShoppingBag, Share2, Send, MessageCircle, Link, Minus, Plus } from 'lucide-react';
 import { useCartStore } from '../store/useCart';
+import { trackEvent } from '../lib/analytics';
 import type { Product } from '../data/products';
 
 interface Props {
@@ -51,6 +52,9 @@ export function ProductDetailModal({ product, onClose }: Props) {
     setSelectedColor(null);
     setQty(1);
     setCopied(false);
+    if (product) {
+      trackEvent('view_item', { content_name: product.name, value: product.price, currency: 'USD' });
+    }
   }, [product?.id]);
 
   // Cerrar con Escape

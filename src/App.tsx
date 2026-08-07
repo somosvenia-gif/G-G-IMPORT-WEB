@@ -14,6 +14,8 @@ import { Cart } from './components/Cart';
 import { CheckoutModal } from './components/CheckoutModal';
 import { AdminPanel } from './components/AdminPanel';
 import { WhatsAppButton } from './components/ui/WhatsAppButton';
+import { EmailPopup } from './components/EmailPopup';
+import { initAnalytics } from './lib/analytics';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,10 +35,15 @@ function App() {
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
+  useEffect(() => {
+    initAnalytics();
+  }, []);
+
   return (
     <div ref={containerRef} className="min-h-screen bg-bgLight">
       <Cart />
       <CheckoutModal />
+      <EmailPopup />
       {adminOpen && <AdminPanel onClose={() => setAdminOpen(false)} />}
       <Header />
       <main>

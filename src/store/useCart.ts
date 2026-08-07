@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { trackEvent } from '../lib/analytics';
 
 export interface Product {
   id: string;
@@ -39,6 +40,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
   isCheckoutOpen: false,
 
   addItem: (product, selectedSize, selectedColor, qty = 1) => set((state) => {
+    trackEvent('add_to_cart', {
+      content_name: product.name,
+      value: product.price * qty,
+      currency: 'USD',
+    });
     const cartId = `${product.id}-${selectedSize ?? ''}-${selectedColor ?? ''}`;
     const existing = state.items.find(i => i.cartId === cartId);
     if (existing) {
@@ -62,7 +68,13 @@ export const useCartStore = create<CartStore>((set, get) => ({
   toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
   closeCart: () => set({ isOpen: false }),
 
-  openCheckout: () => set({ isCheckoutOpen: true, isOpen: false }),
+  openCheckout: () => set((state) => {
+    trackEvent('begin_checkout', {
+      value: state.items.reduce((total, item) => total + item.price * item.quantity, 0),
+      currency: 'USD',
+    });
+    return { isCheckoutOpen: true, isOpen: false };
+  }),
   closeCheckout: () => set({ isCheckoutOpen: false }),
 
   getTotal: () =>

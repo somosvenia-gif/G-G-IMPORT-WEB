@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gygimport.com/sitemap.xml

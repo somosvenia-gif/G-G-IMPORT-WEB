@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { X, Copy, Check, MessageCircle, ChevronRight } from 'lucide-react';
 import { useCartStore } from '../store/useCart';
+import { trackEvent } from '../lib/analytics';
 
 // ─── Payment methods data ────────────────────────────────────────────────────
 const PAYMENT_METHODS = [
@@ -105,6 +106,7 @@ export const CheckoutModal = () => {
   const handleWhatsApp = () => {
     const methodLabel = PAYMENT_METHODS.find(m => m.id === selectedMethod)?.label ?? selectedMethod;
     const url = buildWhatsAppURL(items, total, methodLabel);
+    trackEvent('contact', { value: total, currency: 'USD' });
     window.open(url, '_blank');
   };
 
