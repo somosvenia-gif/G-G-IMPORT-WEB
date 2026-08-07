@@ -32,12 +32,15 @@ export const products: Product[] = [
   },
   {
     "name": "Camisa Beige botones dorados",
-    "price": 20,
-    "brand": "SHEIN",
+    "price": 18,
+    "brand": "PRINCESS",
     "category": "casual",
     "image": "/product-images/custom-1774650538480.png",
     "id": "custom-1774650538480",
-    "discount": "-10% OFF"
+    "sizes": [
+      "L"
+    ],
+    "stock": 1
   },
   {
     "name": "Vestido marron con lineas",
