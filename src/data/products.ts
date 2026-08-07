@@ -292,7 +292,7 @@ export const products: Product[] = [
     ]
   },
   {
-    "name": "Franela basica life is better",
+    "name": "Basic Oversize ",
     "price": 10,
     "brand": "SHEIN",
     "category": "casual",
