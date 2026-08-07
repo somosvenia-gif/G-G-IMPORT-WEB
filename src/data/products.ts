@@ -435,9 +435,13 @@ export const products: Product[] = [
     "category": "casual",
     "image": "/product-images/custom-1786082847199.png",
     "colors": [
-      "Celeste"
+      "Celeste",
+      "Marrón"
     ],
-    "id": "custom-1786082847199"
+    "id": "custom-1786082847199",
+    "images": [
+      "/product-images/custom-1786082847199-0.jpg"
+    ]
   },
   {
     "name": "Camisa de puntos",
