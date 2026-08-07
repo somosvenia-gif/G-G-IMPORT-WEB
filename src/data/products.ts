@@ -412,5 +412,19 @@ export const products: Product[] = [
       "M"
     ],
     "id": "custom-1786081220046"
+  },
+  {
+    "name": "Blusa con encaje ",
+    "price": 18,
+    "brand": "SHEIN",
+    "category": "casual",
+    "image": "/product-images/custom-1786082680074.jpg",
+    "sizes": [
+      "M"
+    ],
+    "colors": [
+      "Negro"
+    ],
+    "id": "custom-1786082680074"
   }
 ];
