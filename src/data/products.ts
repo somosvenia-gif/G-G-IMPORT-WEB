@@ -293,7 +293,7 @@ export const products: Product[] = [
   },
   {
     "name": "Basic Oversize ",
-    "price": 10,
+    "price": 12,
     "brand": "SHEIN",
     "category": "casual",
     "image": "/product-images/custom-1779829154690.png",
