@@ -273,14 +273,6 @@ export const products: Product[] = [
     "stock": 3
   },
   {
-    "name": "Chaleco beige de rayas blancas",
-    "price": 20,
-    "brand": "SHEIN",
-    "category": "casual",
-    "image": "/product-images/custom-1779829046201.png",
-    "id": "custom-1779829046201"
-  },
-  {
     "name": "Franela basica vibrando bonito",
     "price": 10,
     "brand": "SHEIN",
