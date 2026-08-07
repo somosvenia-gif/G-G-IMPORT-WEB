@@ -25,10 +25,13 @@ export const products: Product[] = [
   {
     "name": "Sueter Color Mostaza",
     "price": 18,
-    "brand": "SHEIN",
+    "brand": "FOREVER21",
     "category": "casual",
     "image": "/product-images/custom-1774650270022.png",
-    "id": "custom-1774650270022"
+    "id": "custom-1774650270022",
+    "sizes": [
+      "S"
+    ]
   },
   {
     "name": "Camisa Beige botones dorados",
