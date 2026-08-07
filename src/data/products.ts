@@ -437,5 +437,16 @@ export const products: Product[] = [
       "Celeste"
     ],
     "id": "custom-1786082847199"
+  },
+  {
+    "name": "Camisa de puntos",
+    "price": 18,
+    "brand": "SHEIN",
+    "category": "casual",
+    "image": "/product-images/custom-1786082888857.jpg",
+    "sizes": [
+      "L"
+    ],
+    "id": "custom-1786082888857"
   }
 ];
