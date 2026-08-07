@@ -448,5 +448,20 @@ export const products: Product[] = [
       "L"
     ],
     "id": "custom-1786082888857"
+  },
+  {
+    "name": "Sweater university ",
+    "price": 25,
+    "brand": "FOREVER CH",
+    "category": "casual",
+    "image": "/product-images/custom-1786083112605.png",
+    "sizes": [
+      "L"
+    ],
+    "colors": [
+      "Negro",
+      "Gris"
+    ],
+    "id": "custom-1786083112605"
   }
 ];
