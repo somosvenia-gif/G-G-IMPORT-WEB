@@ -503,5 +503,17 @@ export const products: Product[] = [
       "Marrón"
     ],
     "id": "custom-1786084309601"
+  },
+  {
+    "name": "SETS DENIM",
+    "price": 30,
+    "brand": "SHEIN",
+    "category": "casual",
+    "image": "/product-images/custom-1786084499560.jpg",
+    "sizes": [
+      "S",
+      "M"
+    ],
+    "id": "custom-1786084499560"
   }
 ];
