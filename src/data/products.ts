@@ -329,5 +329,21 @@ export const products: Product[] = [
       "marrón"
     ],
     "id": "custom-1786080846795"
+  },
+  {
+    "name": "Bodysuit ",
+    "price": 20,
+    "brand": "FOREVER CH",
+    "category": "casual",
+    "image": "/product-images/custom-1786080908731.png",
+    "sizes": [
+      "M",
+      "L"
+    ],
+    "colors": [
+      "Crema",
+      "Negro"
+    ],
+    "id": "custom-1786080908731"
   }
 ];
