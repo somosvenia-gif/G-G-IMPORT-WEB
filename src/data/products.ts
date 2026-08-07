@@ -256,12 +256,21 @@ export const products: Product[] = [
     "id": "custom-1779827783615"
   },
   {
-    "name": "Franela rosa de rallas blancas",
+    "name": "Básica ",
     "price": 15,
     "brand": "SHEIN",
     "category": "casual",
     "image": "/product-images/custom-1779828895681.png",
-    "id": "custom-1779828895681"
+    "id": "custom-1779828895681",
+    "sizes": [
+      "S"
+    ],
+    "colors": [
+      "Rosada con blanco",
+      "blanco con negro",
+      "beige con blanco"
+    ],
+    "stock": 3
   },
   {
     "name": "Franela blanca de rallas grises",
