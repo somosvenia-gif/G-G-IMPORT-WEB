@@ -72,8 +72,8 @@ export const products: Product[] = [
     ]
   },
   {
-    "name": "Blusa gris y blanca",
-    "price": 40,
+    "name": "Basic de rayas",
+    "price": 15,
     "brand": "SHEIN",
     "category": "casual",
     "image": "/product-images/custom-1774651983856.png",
