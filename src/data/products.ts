@@ -426,5 +426,16 @@ export const products: Product[] = [
       "Negro"
     ],
     "id": "custom-1786082680074"
+  },
+  {
+    "name": "Blusa con botones ",
+    "price": 18,
+    "brand": "PRINCESS",
+    "category": "casual",
+    "image": "/product-images/custom-1786082847199.png",
+    "colors": [
+      "Celeste"
+    ],
+    "id": "custom-1786082847199"
   }
 ];
