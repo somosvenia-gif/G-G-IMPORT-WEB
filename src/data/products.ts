@@ -559,5 +559,19 @@ export const products: Product[] = [
       "Negro"
     ],
     "id": "custom-1786085036190"
+  },
+  {
+    "name": "Jeans tendencia ",
+    "price": 40,
+    "brand": "",
+    "category": "casual",
+    "image": "/product-images/custom-1786085219731.jpg",
+    "images": [
+      "/product-images/custom-1786085219731-0.jpg"
+    ],
+    "colors": [
+      "Talla 13"
+    ],
+    "id": "custom-1786085219731"
   }
 ];
