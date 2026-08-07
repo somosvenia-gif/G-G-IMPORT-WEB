@@ -11,11 +11,6 @@ export const heroImages: HeroImage[] = [
     "alt": "pomelli-image (7)"
   },
   {
-    "id": "hero-1774669654053",
-    "src": "/hero-images/hero-1774669654053.png",
-    "alt": "Copia de pomelli-image (4)"
-  },
-  {
     "id": "hero-1786082180392",
     "src": "/hero-images/hero-1786082180392.jpg",
     "alt": "IMG_1905"
