@@ -345,5 +345,16 @@ export const products: Product[] = [
       "Negro"
     ],
     "id": "custom-1786080908731"
+  },
+  {
+    "name": "Bodysuit",
+    "price": 18,
+    "brand": "",
+    "category": "casual",
+    "image": "/product-images/custom-1786080969984.png",
+    "colors": [
+      "Negro"
+    ],
+    "id": "custom-1786080969984"
   }
 ];
