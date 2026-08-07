@@ -193,7 +193,7 @@ export const products: Product[] = [
     ]
   },
   {
-    "name": "Blusa blanca",
+    "name": "Blusa Sofía ",
     "price": 15,
     "brand": "",
     "category": "casual",
