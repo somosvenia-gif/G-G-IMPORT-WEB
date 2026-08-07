@@ -204,9 +204,9 @@ export const products: Product[] = [
     ]
   },
   {
-    "name": "Franela Hell boy",
-    "price": 20,
-    "brand": "SHEIN",
+    "name": "Franela Hellfire Club (stranger things)",
+    "price": 12,
+    "brand": "",
     "category": "casual",
     "image": "/product-images/custom-1779767340353.png",
     "id": "custom-1779767340353"
