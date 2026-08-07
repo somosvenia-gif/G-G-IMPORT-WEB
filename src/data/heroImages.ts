@@ -19,5 +19,10 @@ export const heroImages: HeroImage[] = [
     "id": "hero-1786082529134",
     "src": "/hero-images/hero-1786082529134.jpg",
     "alt": "IMG_4730"
+  },
+  {
+    "id": "hero-1786082552604",
+    "src": "/hero-images/hero-1786082552604.jpg",
+    "alt": "IMG_4088"
   }
 ];
