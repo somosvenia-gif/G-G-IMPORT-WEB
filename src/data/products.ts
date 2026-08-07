@@ -80,12 +80,15 @@ export const products: Product[] = [
     "id": "custom-1774651983856"
   },
   {
-    "name": "Body morado",
-    "price": 45,
-    "brand": "SHEIN",
+    "name": "Bodysuit",
+    "price": 20,
+    "brand": "FOREVER21",
     "category": "casual",
     "image": "/product-images/custom-1774652024913.png",
-    "id": "custom-1774652024913"
+    "id": "custom-1774652024913",
+    "sizes": [
+      "S"
+    ]
   },
   {
     "name": "Set De Vestir Negro",
