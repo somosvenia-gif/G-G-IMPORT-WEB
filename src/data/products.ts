@@ -91,13 +91,16 @@ export const products: Product[] = [
     "id": "custom-1774668284021"
   },
   {
-    "name": "Set de Estrella Azul",
-    "price": 40,
-    "brand": "SHEIN",
+    "name": "SETS ESTRELLA",
+    "price": 30,
+    "brand": "Star",
     "category": "casual",
     "image": "/product-images/custom-1774668736917.png",
     "stock": 1,
-    "id": "custom-1774668736917"
+    "id": "custom-1774668736917",
+    "sizes": [
+      "S"
+    ]
   },
   {
     "name": "Set casual negro",
