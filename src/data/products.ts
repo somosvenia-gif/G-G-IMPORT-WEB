@@ -392,5 +392,13 @@ export const products: Product[] = [
       "Rojo"
     ],
     "id": "custom-1786081132670"
+  },
+  {
+    "name": "Traje de baño animal print pink",
+    "price": 10,
+    "brand": "SHEIN",
+    "category": "swimwear",
+    "image": "/product-images/custom-1786081183935.jpg",
+    "id": "custom-1786081183935"
   }
 ];
