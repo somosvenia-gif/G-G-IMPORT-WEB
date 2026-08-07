@@ -40,11 +40,18 @@ export const products: Product[] = [
   },
   {
     "name": "Vestido marron con lineas",
-    "price": 50,
-    "brand": "SHEIN",
+    "price": 25,
+    "brand": "FOREVER21",
     "category": "dresses",
     "image": "/product-images/custom-1774651159440.png",
-    "id": "custom-1774651159440"
+    "id": "custom-1774651159440",
+    "sizes": [
+      "S"
+    ],
+    "colors": [
+      "MARRON"
+    ],
+    "stock": 1
   },
   {
     "name": "Blusa rosa con brillos",
