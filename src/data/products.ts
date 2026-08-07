@@ -527,5 +527,23 @@ export const products: Product[] = [
       "Rosado"
     ],
     "id": "custom-1786084649943"
+  },
+  {
+    "name": "Chaqueta deportiva ",
+    "price": 15,
+    "brand": "andar",
+    "category": "casual",
+    "image": "/product-images/custom-1786084835176.jpg",
+    "images": [
+      "/product-images/custom-1786084835176-0.jpg",
+      "/product-images/custom-1786084835176-1.jpg"
+    ],
+    "sizes": [
+      "L"
+    ],
+    "colors": [
+      "Gris"
+    ],
+    "id": "custom-1786084835176"
   }
 ];
