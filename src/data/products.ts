@@ -61,12 +61,15 @@ export const products: Product[] = [
     "stock": 1
   },
   {
-    "name": "Blusa rosa con brillos",
-    "price": 35,
-    "brand": "SHEIN",
+    "name": "Blusa fucsia con brillos",
+    "price": 18,
+    "brand": "",
     "category": "casual",
     "image": "/product-images/custom-1774651189590.png",
-    "id": "custom-1774651189590"
+    "id": "custom-1774651189590",
+    "sizes": [
+      "S"
+    ]
   },
   {
     "name": "Blusa gris y blanca",
