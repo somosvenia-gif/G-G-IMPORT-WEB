@@ -183,11 +183,14 @@ export const products: Product[] = [
   },
   {
     "name": "Chaleco de vestir Rosa",
-    "price": 25,
-    "brand": "SHEIN",
+    "price": 20,
+    "brand": "",
     "category": "casual",
     "image": "/product-images/custom-1779767245902.png",
-    "id": "custom-1779767245902"
+    "id": "custom-1779767245902",
+    "sizes": [
+      "S"
+    ]
   },
   {
     "name": "Blusa blanca",
