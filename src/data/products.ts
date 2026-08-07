@@ -194,11 +194,14 @@ export const products: Product[] = [
   },
   {
     "name": "Blusa blanca",
-    "price": 20,
-    "brand": "SHEIN",
+    "price": 15,
+    "brand": "",
     "category": "casual",
     "image": "/product-images/custom-1779767288206.png",
-    "id": "custom-1779767288206"
+    "id": "custom-1779767288206",
+    "sizes": [
+      "S"
+    ]
   },
   {
     "name": "Franela Hell boy",
