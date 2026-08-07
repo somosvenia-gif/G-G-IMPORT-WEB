@@ -171,12 +171,15 @@ export const products: Product[] = [
     ]
   },
   {
-    "name": "Blusa Rosada",
-    "price": 20,
+    "name": "Basic roja",
+    "price": 10,
     "brand": "SHEIN",
     "category": "casual",
     "image": "/product-images/custom-1779767218020.png",
-    "id": "custom-1779767218020"
+    "id": "custom-1779767218020",
+    "sizes": [
+      "S"
+    ]
   },
   {
     "name": "Chaleco de vestir Rosa",
