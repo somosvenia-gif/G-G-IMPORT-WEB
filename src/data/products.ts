@@ -115,7 +115,7 @@ export const products: Product[] = [
     ]
   },
   {
-    "name": "Set casual negro",
+    "name": "Sets estilo pádel ",
     "price": 25,
     "brand": "SHEIN",
     "category": "casual",
