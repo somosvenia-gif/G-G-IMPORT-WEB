@@ -400,5 +400,17 @@ export const products: Product[] = [
     "category": "swimwear",
     "image": "/product-images/custom-1786081183935.jpg",
     "id": "custom-1786081183935"
+  },
+  {
+    "name": "Traje de baño enterizo",
+    "price": 10,
+    "brand": "SHEIN",
+    "category": "swimwear",
+    "image": "/product-images/custom-1786081220046.jpg",
+    "sizes": [
+      "S",
+      "M"
+    ],
+    "id": "custom-1786081220046"
   }
 ];
