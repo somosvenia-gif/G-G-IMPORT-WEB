@@ -36,7 +36,8 @@ export const products: Product[] = [
     "brand": "SHEIN",
     "category": "casual",
     "image": "/product-images/custom-1774650538480.png",
-    "id": "custom-1774650538480"
+    "id": "custom-1774650538480",
+    "discount": "-10% OFF"
   },
   {
     "name": "Vestido marron con lineas",
