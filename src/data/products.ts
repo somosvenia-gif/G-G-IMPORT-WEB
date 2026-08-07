@@ -584,5 +584,16 @@ export const products: Product[] = [
       "Talla 9"
     ],
     "id": "custom-1786085487686"
+  },
+  {
+    "name": "Jeans FLARE",
+    "price": 40,
+    "brand": "Most Wanted",
+    "category": "casual",
+    "image": "/product-images/custom-1786086013280.jpg",
+    "colors": [
+      "Talla 3"
+    ],
+    "id": "custom-1786086013280"
   }
 ];
