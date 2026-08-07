@@ -300,7 +300,7 @@ export const products: Product[] = [
     "id": "custom-1779829154690"
   },
   {
-    "name": "Franela basica bichota",
+    "name": "Basic Oversize ",
     "price": 10,
     "brand": "SHEIN",
     "category": "casual",
