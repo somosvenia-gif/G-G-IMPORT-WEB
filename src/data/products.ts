@@ -248,8 +248,8 @@ export const products: Product[] = [
     "id": "custom-1779827720493"
   },
   {
-    "name": "Franela celeste con rayas vino y negras",
-    "price": 20,
+    "name": "Basic celeste con rayas vino y negras",
+    "price": 15,
     "brand": "SHEIN",
     "category": "casual",
     "image": "/product-images/custom-1779827783615.png",
